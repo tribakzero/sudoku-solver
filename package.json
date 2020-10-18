@@ -6,7 +6,10 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "eslint ./ --ignore-path .gitignore",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write '**/*.js'"
   },
   "dependencies": {},
   "engines": {
@@ -25,8 +28,18 @@
     "eslint-config-prettier": "^6.13.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.0",
     "jest": "^26.5.3",
+    "lint-staged": "^10.4.2",
     "nodemon": "^2.0.5",
     "prettier": "^2.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": ["prettier --write", "git add"]
   }
 }
